@@ -1565,7 +1565,7 @@ void rejoin_doparts(aClient *sptr, char did_parts[])
 {
 	Membership *tmp;
 	aChannel *chptr;
-	char *comment = "Rejoining because of user@host change";
+	char *comment = "Changing host";
 	int i = 0;
 
 	for (tmp = sptr->user->channel; tmp; tmp = tmp->next)
