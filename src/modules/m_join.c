@@ -441,7 +441,7 @@ DLLFUNC void _join_channel(aChannel *chptr, aClient *cptr, aClient *sptr, int fl
 			    sptr->name, chptr->chname, chptr->topic_nick,
 			    chptr->topic_time);
 		}
-		if (chptr->users == 1 && (MODES_ON_JOIN
+		if (chptr->users == 1 && !(chptr->mode.extmode & EXTMODE_PERMANENT) && (MODES_ON_JOIN
 #ifdef EXTCMODE
 		    || iConf.modes_on_join.extmodes)
 #endif

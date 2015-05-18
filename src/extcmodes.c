@@ -57,6 +57,7 @@ Cmode_t EXTMODE_NONOTICE = 0L;
 #ifdef STRIPBADWORDS
 Cmode_t EXTMODE_STRIPBADWORDS = 0L;
 #endif
+Cmode_t EXTMODE_PERMANENT = 0L;
 
 #ifdef JOINTHROTTLE
 /* cmode j stuff... */
@@ -73,6 +74,7 @@ int extcmode_cmodeT_requirechop(aClient *cptr, aChannel *chptr, char *para, int 
 #ifdef STRIPBADWORDS
 int extcmode_cmodeG_requirechop(aClient *cptr, aChannel *chptr, char *para, int checkt, int what);
 #endif
+int extcmode_cmodeP_ok(aClient *cptr, aChannel *chptr, char *para, int checkt, int what);
 
 void make_extcmodestr()
 {
@@ -111,6 +113,11 @@ static void load_extendedchanmodes(void)
 	req.is_ok = extcmode_cmodeT_requirechop;
 	req.flag = 'T';
 	CmodeAdd(NULL, req, &EXTMODE_NONOTICE);
+
+	req.flag = 'P';
+	req.is_ok = extcmode_cmodeP_ok;
+	CmodeAdd(NULL, req, &EXTMODE_PERMANENT);
+
 #ifdef STRIPBADWORDS
 	req.flag = 'G';
 	req.is_ok = extcmode_cmodeG_requirechop;
@@ -401,6 +408,14 @@ int extcmode_cmodeG_requirechop(aClient *cptr, aChannel *chptr, char *para, int 
 	return EX_DENY;
 }
 
+int extcmode_cmodeP_ok(aClient *cptr, aChannel *chptr, char *para, int checkt, int what)
+{
+	if (IsPerson(cptr) && IsAnOper(cptr))
+		return EX_ALLOW;
+	if (checkt == EXCHK_ACCESS_ERR)
+		sendto_one(cptr, err_str(ERR_NOPRIVILEGES), me.name, cptr->name, 'P');
+	return EX_DENY;
+}
 #ifdef JOINTHROTTLE
 /*** CHANNEL MODE +j STUFF ******/
 int cmodej_is_ok(aClient *sptr, aChannel *chptr, char *para, int type, int what)

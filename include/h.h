@@ -474,6 +474,7 @@ extern MODVAR Cmode_t EXTMODE_STRIPBADWORDS;
 #endif
 extern MODVAR Cmode_t EXTMODE_JOINTHROTTLE;
 #endif
+extern MODVAR Cmode_t EXTMODE_PERMANENT;
 
 #ifndef HAVE_STRLCPY
 size_t strlcpy(char *dst, const char *src, size_t size);

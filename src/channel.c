@@ -1370,7 +1370,7 @@ void sub1_from_channel(aChannel *chptr)
 	Link *lp;
 
         /* if (--chptr->users <= 0) */
-	if (chptr->users == 0 || --chptr->users == 0)
+	if ((chptr->users == 0 || --chptr->users == 0) && !(chptr->mode.extmode & EXTMODE_PERMANENT))
 	{
 		/*
 		 * Now, find all invite links from channel structure
