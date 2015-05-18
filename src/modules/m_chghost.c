@@ -200,7 +200,17 @@ DLLFUNC int m_chghost(aClient *cptr, aClient *sptr, int parc, char *parv[])
 				sptr->name, acptr->name, acptr->user->username, acptr->user->realhost, parv[2]); 
 		}
  
-                  
+		if (IsPerson(sptr) && MyClient(acptr))
+		{
+			char sptr_mask[NICKLEN + USERLEN + HOSTLEN + 24] = "%s!%s@%s";
+			sprintf(sptr_mask, sptr->name, sptr->user->username, sptr->user->virthost);
+			sendto_one(acptr, err_str(RPL_CLOAKED), me.name, acptr->name, parv[2], sptr_mask);
+		}
+		else if (MyClient(acptr))
+		{
+			sendto_one(acptr, err_str(RPL_CLOAKED), me.name, acptr->name, parv[2], sptr->name);
+		}
+
 		acptr->umodes |= UMODE_HIDE;
 		acptr->umodes |= UMODE_SETHOST;
 		sendto_serv_butone_token(cptr, sptr->name,

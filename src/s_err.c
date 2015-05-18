@@ -440,7 +440,7 @@ static char *replies[] = {
 /* 394 */ NULL,
 /* 395 */ NULL, 
 #endif
-/* 396 */ NULL, /* ircu */
+/* 396    RPL_CLOAKED */ ":%s 396 %s %s :is now your hidden host (set by %s)",
 /* 397 */ NULL,
 /* 398 */ NULL,
 /* 399 */ NULL,

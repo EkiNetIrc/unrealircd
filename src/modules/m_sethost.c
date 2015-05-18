@@ -244,6 +244,11 @@ DLLFUNC int m_sethost(aClient *cptr, aClient *sptr, int parc, char *parv[])
 	if (MyConnect(sptr))
 	{
 		sendto_one(sptr, ":%s MODE %s :+xt", sptr->name, sptr->name);
+		{
+			char sptr_mask[NICKLEN + USERLEN + HOSTLEN + 24] = "%s!%s@%s";
+			sprintf(sptr_mask, sptr->name, sptr->user->username, sptr->user->virthost);
+			sendto_one(sptr, err_str(RPL_CLOAKED), me.name, sptr->name, vhost, sptr_mask);
+		}
 		sendto_one(sptr,
 		    ":%s NOTICE %s :Your nick!user@host-mask is now (%s!%s@%s) - To disable it type /mode %s -x",
 		    me.name, parv[0], parv[0], sptr->user->username, vhost,

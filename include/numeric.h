@@ -387,4 +387,6 @@
 #define ERR_SASLABORTED         906
 #define ERR_SASLALREADY         907
 
+#define RPL_CLOAKED             396
+
 #define ERR_NUMERICERR       999
