@@ -134,13 +134,13 @@ DLLFUNC int m_chghost(aClient *cptr, aClient *sptr, int parc, char *parv[])
 
 	if (!valid_host(parv[2]))
 	{
-		sendnotice(sptr, "*** /ChgHost Error: A hostname may contain a-z, A-Z, 0-9, '-' & '.' - Please only use them");
+		sendnotice(sptr, "*** /ChgHost Error: A hostname may contain a-z, A-Z, 0-9, '-', '.' & '/' - Please only use them");
 		return 0;
 	}
 
-	if (parv[2][0] == ':')
+	if ((parv[2][0] == ':') || (parv[2][0] == '/'))
 	{
-		sendnotice(sptr, "*** A hostname cannot start with ':'");
+		sendnotice(sptr, "*** A hostname cannot start with ':' or '/'");
 		return 0;
 	}
 
