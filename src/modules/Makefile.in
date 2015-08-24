@@ -15,7 +15,7 @@
 #*   You should have received a copy of the GNU General Public License
 #*   along with this program; if not, write to the Free Software
 #*   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#*   
+#*
 #*   $Id$
 #*/
 # major edit from fez - to compile objects individually...
@@ -81,7 +81,7 @@ COMMANDS=m_sethost.o m_chghost.o m_chgident.o m_setname.o m_setident.o \
 	 m_nopost.o m_issecure.o m_cap.o m_sasl.o
 
 
-MODULES=commands.so cloak.so $(R_MODULES)
+MODULES=commands.so cloak.so nocloak.so $(R_MODULES)
 MODULEFLAGS=@MODULEFLAGS@
 CC=@CC@
 RM=@RM@
@@ -865,6 +865,10 @@ m_sasl.so: m_sasl.c $(INCLUDES)
 cloak.so: cloak.c $(INCLUDES)
 	$(CC) $(CFLAGS) $(MODULEFLAGS) -DDYNAMIC_LINKING \
 		-o cloak.so cloak.c
+
+nocloak.so: nocloak.c
+	$(CC) $(CFLAGS) $(MODULEFLAGS) -DDYNAMIC_LINKING \
+		-o nocloak.so nocloak.c $(EXLIBS)
 
 clean:
 	$(RM) -f *.o *.so *~ core
