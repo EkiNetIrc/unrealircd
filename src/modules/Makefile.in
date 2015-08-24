@@ -55,7 +55,7 @@ R_MODULES= \
 	 m_mode.so m_watch.so m_part.so m_join.so m_motd.so m_opermotd.so \
 	 m_botmotd.so m_lusers.so m_names.so m_svsnolag.so m_addmotd.so \
 	 m_svslusers.so m_starttls.so m_nopost.so m_issecure.so m_cap.so \
-	 m_sasl.so m_bansync.so m_privdeaf.so m_sanick.so
+	 m_sasl.so m_bansync.so m_privdeaf.so m_sanick.so textban.so
 
 #note change of .c to .o
 COMMANDS=m_sethost.o m_chghost.o m_chgident.o m_setname.o m_setident.o \
@@ -881,6 +881,10 @@ m_privdeaf.so: m_privdeaf.c
 m_sanick.so: m_sanick.c
 	$(CC) $(CFLAGS) $(MODULEFLAGS) -DDYNAMIC_LINKING \
 		-o m_sanick.so m_sanick.c $(EXLIBS)
+
+textban.so: textban.c
+	$(CC) $(CFLAGS) $(MODULEFLAGS) -DDYNAMIC_LINKING \
+		-o textban.so textban.c $(EXLIBS)
 
 clean:
 	$(RM) -f *.o *.so *~ core
