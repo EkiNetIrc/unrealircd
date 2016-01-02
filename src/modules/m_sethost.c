@@ -129,13 +129,13 @@ CMD_FUNC(m_sethost)
 	if (!valid_host(vhost))
 	{
 		sendto_one(sptr,
-		    ":%s NOTICE %s :*** /SetHost Error: A hostname may contain a-z, A-Z, 0-9, '-' & '.' - Please only use them",
+		    ":%s NOTICE %s :*** /SetHost Error: A hostname may contain a-z, A-Z, 0-9, '-', '.' & '/' - Please only use them",
 		    me.name, sptr->name);
 		return 0;
 	}
-	if (vhost[0] == ':')
+	if ((vhost[0] == ':') ||(vhost[0] == '/'))
 	{
-		sendto_one(sptr, ":%s NOTICE %s :*** A hostname cannot start with ':'", me.name, sptr->name);
+		sendto_one(sptr, ":%s NOTICE %s :*** A hostname cannot start with ':' or '/'", me.name, sptr->name);
 		return 0;
 	}
 
